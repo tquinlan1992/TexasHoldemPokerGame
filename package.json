@@ -1,0 +1,26 @@
+{
+  "name": "poker",
+  "version": "1.0.0",
+  "description": "Texam Holdem Poker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "jshintConfig": {
+    "esnext": true,
+    "curly": true,
+    "forin": true,
+    "eqeqeq": true,
+    "eqnull": true,
+    "latedef": "nofunc",
+    "notypeof": true,
+    "undef": true,
+    "unused": true,
+    "node": true
+  },
+  "dependencies": {
+    "lodash": "^4.15.0"
+  }
+}
