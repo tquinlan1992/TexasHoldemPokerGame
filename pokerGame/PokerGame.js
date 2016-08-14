@@ -37,7 +37,8 @@ class PokerGame {
 
     getTexasHoldemFlop() {
         var texasHoldemDeckConstants = this.texasHoldemDeck.getConstants();
-        if (_.includes([texasHoldemDeckConstants.FLOP, texasHoldemDeckConstants.TURN, texasHoldemDeckConstants.RIVER], this.texasHoldemDeck.getStatus())) {
+        var flopHasBeenDealt = _.includes([texasHoldemDeckConstants.FLOP, texasHoldemDeckConstants.TURN, texasHoldemDeckConstants.RIVER], this.texasHoldemDeck.getStatus());
+        if (flopHasBeenDealt) {
             return this.texasHoldemDeck.getFlop();
         }
     }
