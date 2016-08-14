@@ -1,13 +1,7 @@
 "use strict";
 const _ = require("lodash");
 const Deck = require("./Deck");
-
-const texasHoldemDeckConstants = {
-    PRE_FLOP: 0,
-    FLOP: 1,
-    TURN: 2,
-    RIVER: 3
-};
+const texasHoldemDeckConstants = require("./constants/texasHoldemDeck");
 
 class PreGameHighCards {
     constructor(players) {
@@ -43,10 +37,6 @@ class PreGameHighCards {
 
     getStatus() {
         return this.status;
-    }
-
-    getConstants() {
-        return texasHoldemDeckConstants;
     }
 
 

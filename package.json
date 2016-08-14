@@ -1,10 +1,14 @@
 {
-  "name": "poker",
+  "name": "TexasHoldemPokerGame",
   "version": "1.0.0",
   "description": "Texam Holdem Poker",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp test"
+  },
+  "repository": {
+      "type": "git",
+      "url": "git://github.com/tquinlan1992/PokerGame.git"
   },
   "author": "",
   "license": "ISC",

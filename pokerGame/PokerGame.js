@@ -4,6 +4,7 @@ const Player = require("./Player");
 const PreGameHighCards = require("./PreGameHighCards");
 const pokerGameStatuses = require("./constants/pokerGameStatuses");
 const TexasHoldemDeck = require("./TexasHoldemDeck");
+const texasHoldemDeckConstants = require("./constants/texasHoldemDeck");
 
 class PokerGame {
     constructor(playersAmounts) {
@@ -35,11 +36,12 @@ class PokerGame {
         this.gameStatus = pokerGameStatuses.BET_CHECK_OR_FOLD;
     }
 
-    getTexasHoldemFlop() {
-        var texasHoldemDeckConstants = this.texasHoldemDeck.getConstants();
-        var flopHasBeenDealt = _.includes([texasHoldemDeckConstants.FLOP, texasHoldemDeckConstants.TURN, texasHoldemDeckConstants.RIVER], this.texasHoldemDeck.getStatus());
-        if (flopHasBeenDealt) {
-            return this.texasHoldemDeck.getFlop();
+    getTexasHoldemTableCards(flopTurnRiver) {
+        switch(flopTurnRiver) {
+            case texasHoldemDeckConstants.FLOP:
+                if (_.chain(texasHoldemDeckConstants).omit("PRE_FLOP").includes(this.texasHoldemDeck.getStatus()).value()) {
+                    return this.texasHoldemDeck.getFlop();
+                }
         }
     }
 

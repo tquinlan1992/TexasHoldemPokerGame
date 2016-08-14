@@ -2,6 +2,7 @@ const test = require("tape");
 const PokerGame = require("../pokerGame/PokerGame");
 const _ = require("lodash");
 const pokerGameStatuses = require("../pokerGame/constants/pokerGameStatuses");
+const texasHoldemDeckConstants = require("../pokerGame/constants/texasHoldemDeck");
 
 var playersAmounts = [
     {
@@ -54,7 +55,7 @@ test("test dealCardsForTexasHoldem and see flop", t => {
     });
     t.equal(pokerGame.getGameStatus(), pokerGameStatuses.BET_CHECK_OR_FOLD, "Game status should be VOTE_FOR_WINNER");
 
-    t.false(pokerGame.getTexasHoldemFlop(), "shouldn't be able to get the flop because the flop hasn't been dealt yet");
+    t.false(pokerGame.getTexasHoldemTableCards(texasHoldemDeckConstants.FLOP), "shouldn't be able to get the flop because the flop hasn't been dealt yet");
 
     t.end();
 });
