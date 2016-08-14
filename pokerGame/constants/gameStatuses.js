@@ -1,5 +1,4 @@
 module.exports = {
-    DEAL_HIGH_CARDS: 0,
-    DEAL_HAND: 1,
+    DEAL_CARDS: 0,
     VOTE_FOR_WINNER: 2
 };

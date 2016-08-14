@@ -11,7 +11,7 @@ class PokerGame {
             return new Player(player.name, player.amount);
         });
 
-        this.gameStatus = gameStatuses.DEAL_HIGH_CARDS;
+        this.gameStatus = gameStatuses.DEAL_CARDS;
     }
 
     getPlayersInfo() {
@@ -24,13 +24,21 @@ class PokerGame {
         return this.players;
     }
 
-    continueGame() {
-        switch(this.gameStatus) {
-            case gameStatuses.DEAL_HIGH_CARDS:
-                new PreGameHighCards(this.getPlayers());
-                break;
-            case gameStatuses.VOTE_FOR_WINNER:
-        }
+    dealHighCards() {
+        new PreGameHighCards(this.getPlayers());
+        this.gameStatus = gameStatuses.VOTE_FOR_WINNER;
+    }
+
+    getGameStatus() {
+        return this.gameStatus;
+    }
+
+    voteForWinner(name) {
+        this.gameWinner = name;
+    }
+
+    getGameWinner() {
+        return this.gameWinner;
     }
 }
 

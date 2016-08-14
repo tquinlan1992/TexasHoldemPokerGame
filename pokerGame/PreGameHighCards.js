@@ -1,15 +1,12 @@
 "use strict";
 const _ = require("lodash");
-const cardConstants = require("./constants/cardConstants");
+const Deck = require("./Deck");
 
 class PreGameHighCards {
     constructor(players) {
-        var availableCards = _.chain(cardConstants).reduce((result, cardConstant, n) => {
-            result.push(n);
-            return result;
-        }, []).shuffle().value();
+        var availableCards = new Deck();
         _.forEach(players, player => {
-            player.setHand([availableCards.pop(1)]);
+            player.setHand([availableCards.dealCards(1)]);
         });
     }
 }
