@@ -34,17 +34,4 @@ class PokerGame {
     }
 }
 
-var firstPokerGame = new PokerGame([
-    {
-        name: "tom",
-        amount: 20
-    },
-    {
-        name: "ryan",
-        amount: 20
-    }
-]);
-
-firstPokerGame.continueGame();
-
-console.log(firstPokerGame.getPlayersInfo());
+module.exports = PokerGame;
