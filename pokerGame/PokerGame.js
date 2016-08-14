@@ -2,7 +2,8 @@
 const _ = require("lodash");
 const Player = require("./Player");
 const PreGameHighCards = require("./PreGameHighCards");
-const gameStatuses = require("./constants/gameStatuses");
+const pokerGameStatuses = require("./constants/pokerGameStatuses");
+const TexasHoldemDeck = require("./TexasHoldemDeck");
 
 class PokerGame {
     constructor(playersAmounts) {
@@ -11,7 +12,7 @@ class PokerGame {
             return new Player(player.name, player.amount);
         });
 
-        this.gameStatus = gameStatuses.DEAL_CARDS;
+        this.gameStatus = pokerGameStatuses.DEAL_CARDS;
     }
 
     getPlayersInfo() {
@@ -26,7 +27,19 @@ class PokerGame {
 
     dealHighCards() {
         new PreGameHighCards(this.getPlayers());
-        this.gameStatus = gameStatuses.VOTE_FOR_WINNER;
+        this.gameStatus = pokerGameStatuses.VOTE_FOR_WINNER;
+    }
+
+    dealCardsForTexasHoldem() {
+        this.texasHoldemDeck = new TexasHoldemDeck(this.getPlayers());
+        this.gameStatus = pokerGameStatuses.BET_CHECK_OR_FOLD;
+    }
+
+    getTexasHoldemFlop() {
+        var texasHoldemDeckConstants = this.texasHoldemDeck.getConstants();
+        if (_.includes([texasHoldemDeckConstants.FLOP, texasHoldemDeckConstants.TURN, texasHoldemDeckConstants.RIVER], this.texasHoldemDeck.getStatus())) {
+            return this.texasHoldemDeck.getFlop();
+        }
     }
 
     getGameStatus() {
