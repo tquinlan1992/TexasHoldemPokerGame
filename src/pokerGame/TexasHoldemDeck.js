@@ -8,7 +8,7 @@ class TexasHoldemDeck {
 
         var availableCards = new Deck();
         _.forEach(players, player => {
-            player.setHand([availableCards.dealCards(2)]);
+            player.setHand(availableCards.dealCards(2));
         });
 
         this.status = texasHoldemDeckConstants.PRE_FLOP;
@@ -20,23 +20,44 @@ class TexasHoldemDeck {
         this.river = availableCards.dealCards(1);
     }
 
-    getFlop() {
+    dealNextTexasHoldemTableCards() {
+        switch (this.status) {
+            case texasHoldemDeckConstants.PRE_FLOP:
+                this.dealFlop();
+                break;
+            case texasHoldemDeckConstants.FLOP:
+                this.dealTurn();
+                break;
+            case texasHoldemDeckConstants.TURN:
+                this.dealRiver();
+                break;
+
+        }
+    }
+
+    dealFlop() {
         this.status = texasHoldemDeckConstants.FLOP;
         return this.flop;
     }
 
-    getTurn() {
+    dealTurn() {
         this.status = texasHoldemDeckConstants.TURN;
         return this.turn;
     }
 
-    getRiver() {
+    dealRiver() {
         this.status = texasHoldemDeckConstants.RIVER;
         return this.river;
     }
 
-    getStatus() {
-        return this.status;
+    toJSON() {
+        let json = _.omit(this, ["flop", "turn", "river"]);
+        _.assign(json, {
+            flop: _.includes([texasHoldemDeckConstants.FLOP, texasHoldemDeckConstants.TURN, texasHoldemDeckConstants.RIVER], this.status) ? this.flop : null,
+            turn: _.includes([texasHoldemDeckConstants.TURN, texasHoldemDeckConstants.RIVER], this.status) ? this.turn : null,
+            river: _.includes([texasHoldemDeckConstants.RIVER], this.status) ? this.river : null
+        });
+        return json;
     }
 
 

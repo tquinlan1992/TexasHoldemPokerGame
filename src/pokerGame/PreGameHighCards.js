@@ -6,7 +6,7 @@ class PreGameHighCards {
     constructor(players) {
         var availableCards = new Deck();
         _.forEach(players, player => {
-            player.setHand([availableCards.dealCards(1)]);
+            player.setHand(availableCards.dealCards(1));
         });
     }
 }

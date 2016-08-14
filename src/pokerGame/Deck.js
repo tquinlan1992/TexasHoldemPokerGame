@@ -11,7 +11,7 @@ class Deck {
     }
 
     dealCards(numberOfCardsToDeal) {
-        return this.availableCards.pop(numberOfCardsToDeal);
+        return _.times(numberOfCardsToDeal, () => this.availableCards.pop());
     }
 }
 
