@@ -42,7 +42,7 @@ class PokerGame {
     toJSON() {
         let json = _.omit(this, ["players"]);
         json.players = _.map(this.players, player => {
-            return player.getPlayerInfo();
+            return player.toJSON();
         });
         return json;
     }

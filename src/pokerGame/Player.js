@@ -6,15 +6,6 @@ class Player {
         this.id = player.id;
         this.amount = player.amount;
         this.hand = [];
-        this.dealer = player.dealer;
-    }
-
-    getPlayerInfo() {
-        return {
-            id: this.id,
-            amount: this.amount,
-            hand: this.hand
-        };
     }
 
     setAmount(amount) {
