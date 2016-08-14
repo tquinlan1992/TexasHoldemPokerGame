@@ -24,6 +24,9 @@
     "lodash": "^4.15.0"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-tape": "0.0.9",
+    "tap-colorize": "^1.2.0",
     "tape": "^4.6.0"
   }
 }
