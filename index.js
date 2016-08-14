@@ -1,3 +1,3 @@
-const PokerGame = require("./pokerGame/PokerGame");
+const PokerGame = require("./src/pokerGame/PokerGame");
 
 module.exports = PokerGame;

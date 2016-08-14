@@ -1,7 +1,7 @@
 const test = require("tape");
 const _ = require("lodash");
-const BettingRound = require("../pokerGame/BettingRound");
-const Player = require("../pokerGame/Player");
+const BettingRound = require("../src/pokerGame/BettingRound");
+const Player = require("../src/pokerGame/Player");
 
 var players = _.chain([
     {
@@ -19,16 +19,26 @@ var players = _.chain([
 test("test create BettingRound", t => {
     var bettingRound = new BettingRound(_.cloneDeep(players), 5, 10, 4, "tom");
 
-    t.true(bettingRound.getRoundCreated(), true);
-    t.equal(bettingRound.getRoundConfigs(), {
+    t.deepEqual(bettingRound.toJSON(), {
+        roundCreated: true,
         smallBlind: 5,
         bigBlind: 10,
-        numberOfRaises: 4
+        numberOfRaises: 4,
+        players: [
+            {
+                id: "tom",
+                amount: 20,
+                dealer: true,
+                hand: []
+            },
+            {
+                id: "ryan",
+                amount: 20,
+                dealer: undefined,
+                hand: []
+            }
+        ]
     });
-    t.
-    console.log('bettingRound.getRoundCreated()', bettingRound.getRoundCreated());
-    console.log('test', bettingRound.getRoundConfigs());
-    console.log('bettingRound.getPlayers()', bettingRound.getPlayers());
 
     t.end();
 });

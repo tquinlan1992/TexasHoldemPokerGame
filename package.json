@@ -7,8 +7,8 @@
     "test": "gulp test"
   },
   "repository": {
-      "type": "git",
-      "url": "git://github.com/tquinlan1992/PokerGame.git"
+    "type": "git",
+    "url": "git://github.com/tquinlan1992/PokerGame.git"
   },
   "author": "",
   "license": "ISC",
@@ -29,7 +29,10 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.1",
     "gulp-tape": "0.0.9",
+    "jshint": "^2.9.2",
+    "map-stream": "0.0.6",
     "tap-colorize": "^1.2.0",
     "tape": "^4.6.0"
   }
