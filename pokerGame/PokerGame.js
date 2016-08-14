@@ -7,32 +7,22 @@ const TexasHoldemDeck = require("./TexasHoldemDeck");
 const texasHoldemDeckConstants = require("./constants/texasHoldemDeck");
 
 class PokerGame {
-    constructor(playersAmounts) {
+    constructor(players) {
 
-        this.players = _.map(playersAmounts, (player) => {
-            return new Player(player.name, player.amount);
+        this.players = _.map(players, (player) => {
+            return new Player(player);
         });
 
         this.gameStatus = pokerGameStatuses.DEAL_CARDS;
     }
 
-    getPlayersInfo() {
-        return _.map(this.players, player => {
-            return player.getPlayerInfo();
-        });
-    }
-
-    getPlayers() {
-        return this.players;
-    }
-
     dealHighCards() {
-        new PreGameHighCards(this.getPlayers());
+        new PreGameHighCards(this.players);
         this.gameStatus = pokerGameStatuses.VOTE_FOR_WINNER;
     }
 
     dealCardsForTexasHoldem() {
-        this.texasHoldemDeck = new TexasHoldemDeck(this.getPlayers());
+        this.texasHoldemDeck = new TexasHoldemDeck(this.players);
         this.gameStatus = pokerGameStatuses.BET_CHECK_OR_FOLD;
     }
 
@@ -45,16 +35,16 @@ class PokerGame {
         }
     }
 
-    getGameStatus() {
-        return this.gameStatus;
-    }
-
-    voteForWinner(name) {
+    setGameWinner(name) {
         this.gameWinner = name;
     }
 
-    getGameWinner() {
-        return this.gameWinner;
+    toJson() {
+        let json = _.omit(this, ["players"]);
+        json.players = _.map(this.players, player => {
+            return player.getPlayerInfo();
+        });
+        return json;
     }
 }
 

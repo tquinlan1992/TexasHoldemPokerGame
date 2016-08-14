@@ -1,15 +1,15 @@
 "use strict";
 
 class Player {
-    constructor(name, amount) {
-        this.name = name;
-        this.amount = amount;
+    constructor(player) {
+        this.id = player.id;
+        this.amount = player.amount;
         this.hand = [];
     }
 
     getPlayerInfo() {
         return {
-            name: this.name,
+            id: this.id,
             amount: this.amount,
             hand: this.hand
         };
