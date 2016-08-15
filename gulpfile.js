@@ -6,13 +6,10 @@ gulp.task('jshint', require("./gulp/tasks/jshint"));
 
 gulp.task('build-PokerGame', require("./gulp/tasks/build-PokerGame"));
 
-gulp.task('build-PokerGameMin', require("./gulp/tasks/build-PokerGameMin"));
-
-gulp.task('watch', ['build-PokerGameMin'], function() {
+gulp.task('watch', ['build-PokerGame'], function() {
     gulp.watch('./src/**/*.js', ['build']);
 });
 
-
 gulp.task('default', ['jshint', 'test']);
 
-gulp.task('build', ['build-PokerGame', 'build-PokerGameMin']);
+gulp.task('build', ['build-PokerGame']);
