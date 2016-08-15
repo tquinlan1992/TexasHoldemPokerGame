@@ -10,11 +10,12 @@ module.exports = function() {
         .pipe(source('PokerGame.js'))
         .pipe(buffer())
         .pipe(gulp.dest('./build/'));
-    return PokerGameBrowserifyBundle()
+    PokerGameBrowserifyBundle()
         .pipe(source('PokerGame.min.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('./build/'));
+    return;
 };
