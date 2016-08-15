@@ -1,56 +1,12 @@
-var gulp = require('gulp');
-var tape = require('gulp-tape');
-var tapColorize = require('tap-colorize');
-var jshint = require('gulp-jshint');
-var packageJSON = require('./package');
-var jshintConfig = packageJSON.jshintConfig;
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
+const gulp = require('gulp');
 
-gulp.task('test', function() {
-    return gulp.src('test/*.js')
-        .pipe(tape({
-            reporter: tapColorize()
-        }));
-});
+gulp.task('test', require("./gulp/tasks/test"));
 
-gulp.task('jshint', function() {
-    return gulp.src('src/**/*.js')
-        .pipe(jshint(jshintConfig))
-        .pipe(jshint.reporter('default'))
-        .pipe(jshint.reporter('fail'));
-});
+gulp.task('jshint', require("./gulp/tasks/jshint"));
 
-function PokerGameBrowserifyBundle() {
-    return browserify({
-            entries: './src/pokerGame/PokerGame.js',
-            debug: true
-        })
-        .transform("babelify", {
-            presets: ["es2015"]
-        })
-        .bundle();
-}
+gulp.task('build-PokerGame', require("./gulp/tasks/build-PokerGame"));
 
-gulp.task('build-PokerGame', function() {
-    return PokerGameBrowserifyBundle()
-        .pipe(source('PokerGame.js'))
-        .pipe(buffer())
-        .pipe(gulp.dest('./build/'));
-});
-
-gulp.task('build-PokerGameMin', function() {
-    return PokerGameBrowserifyBundle()
-        .pipe(source('PokerGame.min.js'))
-        .pipe(buffer())
-        .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./build/'));
-});
+gulp.task('build-PokerGameMin', require("./gulp/tasks/build-PokerGameMin"));
 
 gulp.task('watch', ['build-PokerGameMin'], function() {
     gulp.watch('./src/**/*.js', ['build']);
