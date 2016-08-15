@@ -24,7 +24,7 @@ gulp.task('jshint', function() {
         .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('build', function() {
+function PokerGameBrowserifyBundle() {
     return browserify({
             entries: './src/pokerGame/PokerGame.js',
             debug: true
@@ -32,7 +32,18 @@ gulp.task('build', function() {
         .transform("babelify", {
             presets: ["es2015"]
         })
-        .bundle()
+        .bundle();
+}
+
+gulp.task('build-PokerGame', function() {
+    return PokerGameBrowserifyBundle()
+        .pipe(source('PokerGame.js'))
+        .pipe(buffer())
+        .pipe(gulp.dest('./build/'));
+});
+
+gulp.task('build-PokerGameMin', function() {
+    return PokerGameBrowserifyBundle()
         .pipe(source('PokerGame.min.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init())
@@ -41,9 +52,11 @@ gulp.task('build', function() {
         .pipe(gulp.dest('./build/'));
 });
 
-gulp.task('watch', ['build'], function() {
+gulp.task('watch', ['build-PokerGameMin'], function() {
     gulp.watch('./src/**/*.js', ['build']);
 });
 
 
 gulp.task('default', ['jshint', 'test']);
+
+gulp.task('build', ['build-PokerGame', 'build-PokerGameMin']);
