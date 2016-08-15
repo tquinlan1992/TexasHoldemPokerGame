@@ -25,7 +25,6 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('build', function() {
-    // app.js is your main JS file with all your module inclusions
     return browserify({
             entries: './src/pokerGame/PokerGame.js',
             debug: true
