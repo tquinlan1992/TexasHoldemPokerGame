@@ -2,7 +2,7 @@
   "name": "TexasHoldemPokerGame",
   "version": "1.0.0",
   "description": "Texam Holdem Poker",
-  "main": "index.js",
+  "main": "packageJsonMain.js",
   "scripts": {
     "test": "gulp test"
   },
