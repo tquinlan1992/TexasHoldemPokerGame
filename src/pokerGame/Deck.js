@@ -14,6 +14,11 @@ class Deck {
         const cardsToDeal = _.pull(_.times(numberOfCardsToDeal, () => this.availableCards.pop()), undefined);
         return cardsToDeal.length ? cardsToDeal : null;
     }
+
+    toJSON() {
+        let json = _.omit(this, ["availableCards"]);
+        return json;
+    }
 }
 
 module.exports = Deck;

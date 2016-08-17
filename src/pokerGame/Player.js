@@ -1,5 +1,6 @@
 "use strict";
 const _ = require("lodash");
+const bigRat = require("big-rational");
 
 class Player {
     constructor(player) {
@@ -8,8 +9,8 @@ class Player {
         this.hand = [];
     }
 
-    setAmount(amount) {
-        this.amount += amount;
+    editAmount(amount) {
+        this.amount = bigRat(this.amount).add(amount);
     }
 
     setHand(hand) {
@@ -17,8 +18,11 @@ class Player {
     }
 
     toJSON() {
-        let json = _.omit(this, []);
-        return json;
+        let json = _.omit(this, ["amount"]);
+        _.assign(json, {
+            amount: this.amount !== undefined ? bigRat(this.amount).toDecimal(2) : undefined
+        });
+        return _.omitBy(json, o => o === undefined);
     }
 }
 

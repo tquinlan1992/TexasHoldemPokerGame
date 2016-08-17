@@ -4,14 +4,11 @@ const _ = require("lodash");
 const Player = require("../src/pokerGame/Player");
 
 const players1 = [{
-    id: "tom",
-    amount: 20
+    id: "tom"
 }, {
-    id: "ryan",
-    amount: 20
+    id: "ryan"
 }, {
-    id: "bobby",
-    amount: 20
+    id: "bobby"
 }];
 
 function createTestPlayers(players) {
@@ -34,7 +31,6 @@ test("test HighCards", t => {
     t.deepEqual(highCards.toJSON(), {
         winner: {
             id: winningPlayerFromCreatedPlayersArray.id,
-            amount: winningPlayerFromCreatedPlayersArray.amount,
             hand: winningPlayerFromCreatedPlayersArray.hand
         }
     });

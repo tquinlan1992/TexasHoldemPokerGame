@@ -25,6 +25,7 @@
     "node": true
   },
   "dependencies": {
+    "big-rational": "^0.10.5",
     "lodash": "^4.15.0"
   },
   "devDependencies": {

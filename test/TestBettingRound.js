@@ -3,20 +3,16 @@ const _ = require("lodash");
 const BettingRound = require("../src/pokerGame/BettingRound");
 const Player = require("../src/pokerGame/Player");
 
-const players1 = [
-    {
-        id: "tom",
-        amount: 20
-    },
-    {
-        id: "ryan",
-        amount: 20
-    },
-    {
-        id: "bobby",
-        amount: 20
-    }
-];
+const players1 = [{
+    id: "tom",
+    amount: "20"
+}, {
+    id: "ryan",
+    amount: "20"
+}, {
+    id: "bobby",
+    amount: "20"
+}];
 
 function createTestPlayers(players) {
     return _.chain(players).map(player => {
@@ -35,23 +31,19 @@ test("test create BettingRound", t => {
         smallBlind: 5,
         bigBlind: 10,
         numberOfRaises: 4,
-        players: [
-            {
-                id: "tom",
-                amount: 20,
-                hand: []
-            },
-            {
-                id: "ryan",
-                amount: 20,
-                hand: []
-            },
-            {
-                id: "bobby",
-                amount: 20,
-                hand: []
-            }
-        ]
+        players: [{
+            id: "tom",
+            amount: "20",
+            hand: []
+        }, {
+            id: "ryan",
+            amount: "20",
+            hand: []
+        }, {
+            id: "bobby",
+            amount: "20",
+            hand: []
+        }]
     });
 
     t.end();
@@ -73,28 +65,22 @@ test("test BettingRound decideWhoToStartBetting on preflop players1", t => {
     t.end();
 });
 
-const players2 = [
-    {
-        id: "tom",
-        amount: 20
-    },
-    {
-        id: "ryan",
-        amount: 20
-    },
-    {
-        id: "bobby",
-        amount: 20
-    },
-    {
-        id: "cj",
-        amount: 20
-    },
-    {
-        id: "brett",
-        amount: 20
-    }
-];
+const players2 = [{
+    id: "tom",
+    amount: 20
+}, {
+    id: "ryan",
+    amount: 20
+}, {
+    id: "bobby",
+    amount: 20
+}, {
+    id: "cj",
+    amount: 20
+}, {
+    id: "brett",
+    amount: 20
+}];
 
 test("test BettingRound decideWhoToStartBetting on preflop players2", t => {
     var bettingRound = new BettingRound(createTestPlayers(players2), 5, 10, 4, "tom", true);

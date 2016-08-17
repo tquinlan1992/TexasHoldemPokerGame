@@ -6,13 +6,13 @@ const texasHoldemDeckConstants = require("../src/pokerGame/constants/texasHoldem
 
 const players1 = [{
     id: "tom",
-    amount: 20
+    amount: "20"
 }, {
     id: "ryan",
-    amount: 20
+    amount: "20"
 }, {
     id: "bobby",
-    amount: 20
+    amount: "20"
 }];
 
 function createTestPlayers(players) {
