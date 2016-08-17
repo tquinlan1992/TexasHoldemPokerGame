@@ -11,7 +11,8 @@ class Deck {
     }
 
     dealCards(numberOfCardsToDeal) {
-        return _.times(numberOfCardsToDeal, () => this.availableCards.pop());
+        const cardsToDeal = _.pull(_.times(numberOfCardsToDeal, () => this.availableCards.pop()), undefined);
+        return cardsToDeal.length ? cardsToDeal : null;
     }
 }
 
