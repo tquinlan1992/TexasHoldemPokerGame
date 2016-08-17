@@ -1,7 +1,7 @@
 "use strict";
 const _ = require("lodash");
 const Player = require("./Player");
-const PreGameHighCards = require("./PreGameHighCards");
+const HighCards = require("./HighCards");
 const pokerGameStatuses = require("./constants/pokerGameStatuses");
 const TexasHoldemDeck = require("./TexasHoldemDeck");
 const BettingRound = require("./BettingRound");
@@ -20,7 +20,7 @@ class PokerGame {
     }
 
     dealHighCards() {
-        new PreGameHighCards(this.players);
+        new HighCards(this.players);
         this.gameStatus = pokerGameStatuses.VOTE_FOR_WINNER;
     }
 
