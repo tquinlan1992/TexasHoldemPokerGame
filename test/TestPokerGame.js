@@ -2,14 +2,13 @@ const test = require("tape");
 const PokerGame = require("../src/pokerGame/PokerGame");
 const _ = require("lodash");
 const pokerGameStatuses = require("../src/pokerGame/constants/pokerGameStatuses");
-const texasHoldemDeckConstants = require("../src/pokerGame/constants/texasHoldemDeck");
 
 var players = [{
     id: "tom",
-    amount: 20
+    amount: "20"
 }, {
     id: "ryan",
-    amount: 20
+    amount: "20"
 }];
 
 test("test create poker game", t => {
