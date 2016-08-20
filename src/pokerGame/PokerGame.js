@@ -1,6 +1,6 @@
 "use strict";
 const _ = require("lodash");
-const Player = require("./Player");
+const Player = require("./Player").PlayerWithHand;
 const HighCards = require("./HighCards");
 const pokerGameStatuses = require("./constants/pokerGameStatuses");
 const TexasHoldemGame = require("./TexasHoldemGame");
@@ -8,14 +8,18 @@ const BettingRound = require("./BettingRound");
 
 class PokerGame {
     constructor(pokerGameObject) {
-
-        this.players = _.map(pokerGameObject.players, (player) => {
-            return new Player(player);
+        _.assign(this, {
+            players: _.map(pokerGameObject.players, (player) => {
+                return new Player(player);
+            }),
+            smallBlind: pokerGameObject.smallBlind,
+            bigBlind: pokerGameObject.bigBlind,
+            numberOfRaisesPerBettingRound: pokerGameObject.numberOfRaisesPerBettingRound,
+            gameStatus: pokerGameObject.status ? pokerGameObject.status : pokerGameStatuses.START,
+            highCardsGame: pokerGameObject.highCardsGame,
+            texasHoldemGame: pokerGameObject.texasHoldemGame,
+            bettingRound: pokerGameObject.bettingRound
         });
-        this.smallBlind = pokerGameObject.smallBlind;
-        this.bigBlind = pokerGameObject.bigBlind;
-        this.numberOfRaisesPerBettingRound = pokerGameObject.numberOfRaisesPerBettingRound;
-        this.gameStatus = pokerGameObject.status ? pokerGameObject.status : pokerGameStatuses.START;
     }
 
     dealHighCards() {
@@ -29,7 +33,7 @@ class PokerGame {
 
     dealCardsForTexasHoldem() {
         this.texasHoldemGame = new TexasHoldemGame(this.players);
-        this.currentBettingRound = new BettingRound(this.players, this.smallBlind, this.bigBlind, this.numberOfRaisesPerBettingRound);
+        this.bettingRound = new BettingRound(this.players, this.smallBlind, this.bigBlind, this.numberOfRaisesPerBettingRound);
         this.gameStatus = pokerGameStatuses.TEXAS_HOLDEM;
     }
 
@@ -57,11 +61,11 @@ class PokerGame {
     }
 
     toJSON() {
-        let json = _.omit(this, ["players", "texasHoldemGame", "currentBettingRound", "highCardsGame"]);
+        let json = _.omit(this, ["players", "texasHoldemGame", "bettingRound", "highCardsGame"]);
         _.assign(json, {
             players: this.playersToJSON(),
             texasHoldemGame: this.texasHoldemGame ? this.texasHoldemGame.toJSON() : null,
-            currentBettingRound: this.currentBettingRound ? this.currentBettingRound.toJSON() : null,
+            bettingRound: this.bettingRound ? this.bettingRound.toJSON() : null,
             highCardsGame: this.highCardsGame ? this.highCardsGame.toJSON() : null
         });
         return json;

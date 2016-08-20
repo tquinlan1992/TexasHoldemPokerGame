@@ -1,7 +1,7 @@
 "use strict";
 const _ = require("lodash");
 const Deck = require("./Deck");
-const Player = require("./Player");
+const Player = require("./Player").PlayerWithHand;
 
 class HighCards {
     constructor(highCardsValues) {

@@ -2,7 +2,7 @@
 const _ = require("lodash");
 const Deck = require("./Deck");
 const texasHoldemDeckConstants = require("./constants/texasHoldemGame");
-const Player = require("./player");
+const Player = require("./player").PlayerWithHand;
 
 class TexasHoldemGame {
     constructor(texasHoldemGameObject) {

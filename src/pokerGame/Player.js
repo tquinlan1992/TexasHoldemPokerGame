@@ -6,7 +6,6 @@ class Player {
     constructor(player) {
         this.id = player.id;
         this.amount = player.amount;
-        this.hand = _.get(player, "hand.length") ? player.hand : [];
     }
 
     editAmount(amount) {
@@ -26,4 +25,20 @@ class Player {
     }
 }
 
-module.exports = Player;
+class PlayerWithHand extends Player {
+    constructor(player) {
+        super(player);
+        _.assign(this, {
+            hand: _.get(player, "hand.length") ? player.hand : []
+        });
+    }
+
+    setHand(hand) {
+        this.hand = !this.hand.length ? hand : this.hand;
+    }
+}
+
+module.exports = {
+    Player: Player,
+    PlayerWithHand: PlayerWithHand
+};

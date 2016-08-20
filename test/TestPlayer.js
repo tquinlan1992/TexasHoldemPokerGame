@@ -1,9 +1,9 @@
-const Player = require("../src/pokerGame/Player");
+const PlayerWithHand = require("../src/pokerGame/Player").PlayerWithHand;
 const tape = require("tape");
 
 tape("Create a player", t => {
 
-    const player = new Player({
+    const player = new PlayerWithHand({
         id: "tom",
         amount: "20",
         hand: []
@@ -24,7 +24,7 @@ tape("Create a player", t => {
 
 tape("test set hand", t => {
 
-    const player = new Player({
+    const player = new PlayerWithHand({
         id: "tom",
         amount: "20",
         hand: []
@@ -49,7 +49,7 @@ tape("test set hand", t => {
 
 tape("test edit amount", t => {
 
-    const player = new Player({
+    const player = new PlayerWithHand({
         id: "tom",
         amount: "20",
         hand: []
