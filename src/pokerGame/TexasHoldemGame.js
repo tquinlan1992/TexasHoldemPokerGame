@@ -1,23 +1,26 @@
 "use strict";
 const _ = require("lodash");
 const Deck = require("./Deck");
-const texasHoldemDeckConstants = require("./constants/texasHoldemDeck");
+const texasHoldemDeckConstants = require("./constants/texasHoldemGame");
+const Player = require("./player");
 
-class TexasHoldemDeck {
-    constructor(players) {
+class TexasHoldemGame {
+    constructor(texasHoldemGameObject) {
 
-        var availableCards = new Deck();
-        _.forEach(players, player => {
-            player.setHand(availableCards.dealCards(2));
+        var deckObject = new Deck(texasHoldemGameObject.deck);
+        this.players = _.map(texasHoldemGameObject.players, player => {
+            const newPlayer = new Player(player);
+            newPlayer.setHand(deckObject.dealCards(2));
+            return newPlayer;
         });
 
         this.status = texasHoldemDeckConstants.PRE_FLOP;
 
-        this.flop = availableCards.dealCards(3);
+        this.flop = deckObject.dealCards(3);
 
-        this.turn = availableCards.dealCards(1);
+        this.turn = deckObject.dealCards(1);
 
-        this.river = availableCards.dealCards(1);
+        this.river = deckObject.dealCards(1);
     }
 
     dealNextTexasHoldemTableCards() {
@@ -63,4 +66,4 @@ class TexasHoldemDeck {
 
 }
 
-module.exports = TexasHoldemDeck;
+module.exports = TexasHoldemGame;

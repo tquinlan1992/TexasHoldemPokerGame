@@ -17,8 +17,8 @@ test("test dealing deck cards", t => {
     t.end();
 });
 
-test("test creating a deck with availableCards", t => {
-    const availableCards = [
+test("test creating a deck with deck", t => {
+    const deck = [
         0,
         1,
         2,
@@ -31,15 +31,15 @@ test("test creating a deck with availableCards", t => {
         9
     ];
 
-    const deck = new Deck(_.clone(availableCards));
+    const deckObject = new Deck(_.clone(deck));
 
-    t.deepEqual(deck, {
-        availableCards: availableCards
+    t.deepEqual(deckObject.toJSON(), {
+        deck: deck
     }, "the deck should be equal to the init");
 
-    t.deepEqual(deck.dealCards(2), [9, 8], "the dealt cards should be equal to the top 2 cards on the deck");
-    t.deepEqual(deck, {
-        availableCards: _.slice(availableCards, 0, -2)
+    t.deepEqual(deckObject.dealCards(2), [9, 8], "the dealt cards should be equal to the top 2 cards on the deck");
+    t.deepEqual(deckObject.toJSON(), {
+        deck: _.slice(deck, 0, -2)
     });
 
     t.end();

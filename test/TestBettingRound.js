@@ -15,7 +15,7 @@ const players1 = [{
 }];
 
 function createTestPlayers(players) {
-    return _.chain(players).map(player => {
+    return _(players).map(player => {
         return new Player(player);
     }).value();
 }

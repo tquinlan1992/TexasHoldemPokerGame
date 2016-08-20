@@ -1,5 +1,5 @@
 module.exports = {
-    DEAL_CARDS: 0,
-    VOTE_FOR_WINNER: 2,
-    BET_CHECK_OR_FOLD: 3
+    START: 0,
+    HIGH_CARDS: 1,
+    TEXAS_HOLDEM: 2
 };

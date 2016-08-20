@@ -6,7 +6,7 @@ class Player {
     constructor(player) {
         this.id = player.id;
         this.amount = player.amount;
-        this.hand = [];
+        this.hand = _.get(player, "hand.length") ? player.hand : [];
     }
 
     editAmount(amount) {
@@ -14,7 +14,7 @@ class Player {
     }
 
     setHand(hand) {
-        this.hand = hand;
+        this.hand = !this.hand.length ? hand : this.hand;
     }
 
     toJSON() {

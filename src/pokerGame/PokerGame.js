@@ -3,7 +3,7 @@ const _ = require("lodash");
 const Player = require("./Player");
 const HighCards = require("./HighCards");
 const pokerGameStatuses = require("./constants/pokerGameStatuses");
-const TexasHoldemDeck = require("./TexasHoldemDeck");
+const TexasHoldemGame = require("./TexasHoldemGame");
 const BettingRound = require("./BettingRound");
 
 class PokerGame {
@@ -15,37 +15,54 @@ class PokerGame {
         this.smallBlind = smallBlind;
         this.bigBlind = bigBlind;
         this.numberOfRaisesPerBettingRound = numberOfRaisesPerBettingRound;
-
-        this.gameStatus = pokerGameStatuses.DEAL_CARDS;
+        this.gameStatus = pokerGameStatuses.START;
     }
 
     dealHighCards() {
-        new HighCards(this.players);
-        this.gameStatus = pokerGameStatuses.VOTE_FOR_WINNER;
+        this.highCardsGame = new HighCards({
+            players: _.map(this.players, player => {
+                return player.toJSON();
+            })
+        });
+        this.gameStatus = pokerGameStatuses.HIGH_CARDS;
     }
 
     dealCardsForTexasHoldem() {
-        this.texasHoldemDeck = new TexasHoldemDeck(this.players);
+        this.texasHoldemGame = new TexasHoldemGame(this.players);
         this.currentBettingRound = new BettingRound(this.players, this.smallBlind, this.bigBlind, this.numberOfRaisesPerBettingRound);
-        this.gameStatus = pokerGameStatuses.BET_CHECK_OR_FOLD;
+        this.gameStatus = pokerGameStatuses.TEXAS_HOLDEM;
     }
 
     dealNextTexasHoldemTableCards() {
-        this.texasHoldemDeck.dealNextTexasHoldemTableCards();
+        this.texasHoldemGame.dealNextTexasHoldemTableCards();
     }
 
     setGameWinner(name) {
         this.gameWinner = name;
     }
 
+    playersToJSON() {
+        switch (this.gameStatus) {
+            case pokerGameStatuses.START:
+                return _.map(this.players, player => {
+                    player.toJSON();
+                });
+            case pokerGameStatuses.HIGH_CARDS:
+                return this.highCardsGame.toJSON().players;
+            case pokerGameStatuses.TEXAS_HOLDEM:
+                return this.texasHoldemGame.toJSON().players;
+            default:
+
+        }
+    }
+
     toJSON() {
-        let json = _.omit(this, ["players", "texasHoldemDeck", "currentBettingRound"]);
+        let json = _.omit(this, ["players", "texasHoldemGame", "currentBettingRound", "highCardsGame"]);
         _.assign(json, {
-            players: _.map(this.players, player => {
-                return player.toJSON();
-            }),
-            texasHoldemDeck: this.texasHoldemDeck ? this.texasHoldemDeck.toJSON() : null,
-            currentBettingRound: this.currentBettingRound ? this.currentBettingRound.toJSON() : null
+            players: this.playersToJSON(),
+            texasHoldemGame: this.texasHoldemGame ? this.texasHoldemGame.toJSON() : null,
+            currentBettingRound: this.currentBettingRound ? this.currentBettingRound.toJSON() : null,
+            highCardsGame: this.highCardsGame ? this.highCardsGame.toJSON() : null
         });
         return json;
     }

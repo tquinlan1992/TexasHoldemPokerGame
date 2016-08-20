@@ -21,7 +21,7 @@ class BettingRound {
     }
 
     decideWhoToStartBetting() {
-        if(this.preflop) {
+        if (this.preflop) {
             this.decideWhoToBetPreflop();
         } else {
             this.idToBet = this.dealerId;
@@ -29,7 +29,7 @@ class BettingRound {
     }
 
     decideWhoToBetPreflop() {
-        if(!this.smallBlind && !this.bigBlind) {
+        if (!this.smallBlind && !this.bigBlind) {
             this.idToBet = this.dealerId;
         } else {
             if (this.players.length > 2) {
@@ -46,8 +46,10 @@ class BettingRound {
 
     toJSON() {
         let json = _.omit(this, ["players"]);
-        json.players = _.map(this.players, player => {
-            return player.toJSON();
+        _.assign(json, {
+            players: _.map(this.players, player => {
+                return player.toJSON();
+            })
         });
         return json;
     }
