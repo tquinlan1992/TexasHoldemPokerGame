@@ -3,11 +3,19 @@ const _ = require("lodash");
 const cardConstants = require("./constants/cardConstants");
 
 class Deck {
-    constructor() {
+    constructor(availableCards) {
+        if (availableCards) {
+            this.setAvailableCards(availableCards);
+            return;
+        }
         this.availableCards = _.chain(cardConstants).reduce((result, cardConstant, n) => {
             result.push(n);
             return result;
         }, []).shuffle().value();
+    }
+
+    setAvailableCards(availableCards) {
+        this.availableCards = availableCards;
     }
 
     dealCards(numberOfCardsToDeal) {
@@ -16,7 +24,7 @@ class Deck {
     }
 
     toJSON() {
-        let json = _.omit(this, ["availableCards"]);
+        let json = _.omit(this, []);
         return json;
     }
 }
