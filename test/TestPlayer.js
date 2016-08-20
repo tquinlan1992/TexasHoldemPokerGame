@@ -1,14 +1,6 @@
 const Player = require("../src/pokerGame/Player");
 const tape = require("tape");
 
-const player = new Player({
-    id: "tom",
-    amount: "20",
-    hand: []
-});
-
-let playerJSON;
-
 tape("Create a player", t => {
 
     const player = new Player({
