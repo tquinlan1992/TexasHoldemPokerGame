@@ -7,15 +7,15 @@ const TexasHoldemGame = require("./TexasHoldemGame");
 const BettingRound = require("./BettingRound");
 
 class PokerGame {
-    constructor(players, smallBlind, bigBlind, numberOfRaisesPerBettingRound) {
+    constructor(pokerGameObject) {
 
-        this.players = _.map(players, (player) => {
+        this.players = _.map(pokerGameObject.players, (player) => {
             return new Player(player);
         });
-        this.smallBlind = smallBlind;
-        this.bigBlind = bigBlind;
-        this.numberOfRaisesPerBettingRound = numberOfRaisesPerBettingRound;
-        this.gameStatus = pokerGameStatuses.START;
+        this.smallBlind = pokerGameObject.smallBlind;
+        this.bigBlind = pokerGameObject.bigBlind;
+        this.numberOfRaisesPerBettingRound = pokerGameObject.numberOfRaisesPerBettingRound;
+        this.gameStatus = pokerGameObject.status ? pokerGameObject.status : pokerGameStatuses.START;
     }
 
     dealHighCards() {

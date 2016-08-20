@@ -12,7 +12,9 @@ var players = [{
 }];
 
 test("test create poker game", t => {
-    var pokerGame = new PokerGame(_.cloneDeep(players));
+    var pokerGame = new PokerGame({
+        players: _.cloneDeep(players)
+    });
 
     t.equal(pokerGame.toJSON().gameStatus, pokerGameStatuses.START, "Game status should be START");
     t.equal(pokerGame.toJSON().players.length, players.length, "playersInfo length should be equal to number of players");
@@ -21,7 +23,9 @@ test("test create poker game", t => {
 });
 
 test("test dealHighCards and setGameWinner", t => {
-    var pokerGame = new PokerGame(_.cloneDeep(players));
+    var pokerGame = new PokerGame({
+        players: _.cloneDeep(players)
+    });
 
     pokerGame.dealHighCards();
 

@@ -27,8 +27,6 @@ class HighCards {
         });
         return json;
     }
-
-
 }
 
 module.exports = HighCards;
