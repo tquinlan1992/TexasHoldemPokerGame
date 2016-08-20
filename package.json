@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "jshintConfig": {
-    "esnext": true,
+    "esversion": 6,
     "curly": true,
     "forin": true,
     "eqeqeq": true,
