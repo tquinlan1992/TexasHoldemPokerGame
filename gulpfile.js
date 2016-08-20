@@ -10,6 +10,6 @@ gulp.task('watch', ['build-PokerGame'], function() {
     gulp.watch('./src/**/*.js', ['build']);
 });
 
-gulp.task('default', ['jshint', 'test']);
+gulp.task('default', ['test']);
 
 gulp.task('build', ['build-PokerGame']);
