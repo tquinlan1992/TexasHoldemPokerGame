@@ -7,20 +7,20 @@ const Player = require("./player");
 class TexasHoldemGame {
     constructor(texasHoldemGameObject) {
 
-        var deckObject = new Deck(texasHoldemGameObject.deck);
+        this.deck = new Deck(texasHoldemGameObject.deck);
         this.players = _.map(texasHoldemGameObject.players, player => {
             const newPlayer = new Player(player);
-            newPlayer.setHand(deckObject.dealCards(2));
+            newPlayer.setHand(this.deck.dealCards(2));
             return newPlayer;
         });
 
-        this.status = texasHoldemDeckConstants.PRE_FLOP;
+        this.status = texasHoldemGameObject.status ? texasHoldemGameObject : texasHoldemDeckConstants.PRE_FLOP;
 
-        this.flop = deckObject.dealCards(3);
+        this.flop = this.deck.dealCards(3);
 
-        this.turn = deckObject.dealCards(1);
+        this.turn = this.deck.dealCards(1);
 
-        this.river = deckObject.dealCards(1);
+        this.river = this.deck.dealCards(1);
     }
 
     dealNextTexasHoldemTableCards() {
