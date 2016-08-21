@@ -1,13 +1,9 @@
 "use strict";
 const _ = require("lodash");
-const cardConstants = require("./constants/cardConstants");
 
 class Deck {
     constructor(deck) {
-        this.deck = deck ? deck : _.chain(cardConstants).reduce((result, cardConstant, n) => {
-            result.push(n);
-            return result;
-        }, []).shuffle().value();
+        this.deck = deck ? deck : _.chain(52).times(Number).shuffle().value();
     }
 
     dealCards(numberOfCardsToDeal) {

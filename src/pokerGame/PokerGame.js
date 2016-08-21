@@ -5,6 +5,7 @@ const HighCards = require("./HighCards");
 const pokerGameStatuses = require("./constants/pokerGameStatuses");
 const TexasHoldemGame = require("./TexasHoldemGame");
 const BettingRound = require("./BettingRound");
+const bettingRoundConstants = require("./constants/bettingRound");
 
 class PokerGame {
     constructor(pokerGameObject) {
@@ -38,11 +39,9 @@ class PokerGame {
     }
 
     dealNextTexasHoldemTableCards() {
-        this.texasHoldemGame.dealNextTexasHoldemTableCards();
-    }
-
-    setGameWinner(name) {
-        this.gameWinner = name;
+        if (this.bettingRound.toJSON().status === bettingRoundConstants.INACTIVE) {
+            this.texasHoldemGame.dealNextTexasHoldemTableCards();
+        }
     }
 
     playersToJSON() {

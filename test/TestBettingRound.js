@@ -1,6 +1,7 @@
 const test = require("tape");
 const _ = require("lodash");
 const BettingRound = require("../src/pokerGame/BettingRound");
+const bettingRoundConstants = require("../src/pokerGame/constants/bettingRound");
 
 const players1 = [{
     id: "tom",
@@ -40,7 +41,8 @@ test("test create BettingRound", t => {
         }, {
             id: "bobby",
             amount: "20"
-        }]
+        }],
+        status: bettingRoundConstants.ACTIVE
     });
 
     t.end();

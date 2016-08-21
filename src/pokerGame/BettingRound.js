@@ -1,6 +1,7 @@
 "use strict";
 const _ = require("lodash");
 const Player = require("./Player").Player;
+const bettingRoundConstants = require("./constants/bettingRound");
 
 class BettingRound {
     constructor(bettingRoundObject) {
@@ -12,7 +13,8 @@ class BettingRound {
             smallBlind: bettingRoundObject.smallBlind,
             bigBlind: bettingRoundObject.bigBlind,
             numberOfRaises: bettingRoundObject.numberOfRaises,
-            dealer: bettingRoundObject.dealer
+            dealer: bettingRoundObject.dealer,
+            status: bettingRoundObject.status ? bettingRoundObject.status : bettingRoundConstants.ACTIVE
         });
 
         if (this.dealer) {
