@@ -3,18 +3,27 @@ const _ = require("lodash");
 const Player = require("./Player").Player;
 const bettingRoundConstants = require("./constants/bettingRound");
 
+function findPlayerIndex(id, players) {
+    return _.findIndex(players, player => {
+        return player.toJSON().id === id;
+    });
+}
+
 class BettingRound {
     constructor(bettingRoundObject) {
+        const originalPlayers = _.map(bettingRoundObject.players, player => {
+            return new Player(player);
+        });
         _.assign(this, {
-            players: _.map(bettingRoundObject.players, player => {
-                return new Player(player);
-            }),
+            originalPlayers: _.clone(originalPlayers),
+            players: _.clone(originalPlayers),
             preflop: bettingRoundObject.preflop,
             smallBlind: bettingRoundObject.smallBlind,
             bigBlind: bettingRoundObject.bigBlind,
             numberOfRaises: bettingRoundObject.numberOfRaises,
             dealer: bettingRoundObject.dealer,
-            status: bettingRoundObject.status ? bettingRoundObject.status : bettingRoundConstants.ACTIVE
+            status: bettingRoundObject.status ? bettingRoundObject.status : bettingRoundConstants.ACTIVE,
+            pot: bettingRoundObject.pot ? bettingRoundObject.pot : "0"
         });
 
         if (this.dealer) {
@@ -38,15 +47,36 @@ class BettingRound {
             this.playerToBetNext = this.dealer;
         } else {
             if (this.players.length > 2) {
-                let foundDealerIndex = _.findIndex(this.players, player => {
-                    return player.toJSON().id === this.dealer.id;
-                });
+                let foundDealerIndex = findPlayerIndex(this.dealer.id, this.players);
                 let potentialIdToBet = foundDealerIndex + 3;
                 const wrapAround = this.players.length - 1 - potentialIdToBet;
-                const idToBet = wrapAround < 0 ? -wrapAround - 1 : potentialIdToBet;
-                this.playerToBetNext = this.players[idToBet];
+                const indexOfPlayerToBet = wrapAround < 0 ? -wrapAround - 1 : potentialIdToBet;
+                this.playerToBetNext = this.players[indexOfPlayerToBet];
             }
         }
+    }
+
+    placeBet(betObject) {
+        if (betObject.id === this.playerToBetNext.toJSON().id) {
+            const playerToBetIndex = findPlayerIndex(betObject.id, this.players);
+            const playerToBet = this.players[playerToBetIndex];
+            playerToBet.editAmount(-betObject.amount);
+            this.editPot(betObject.amount);
+            return {
+                success: true,
+                message: "bet placed",
+                amountReduced: betObject.amount
+            };
+        } else {
+            return {
+                success: false,
+                message: "wrong player to bet"
+            };
+        }
+    }
+
+    editPot(amount) {
+        this.pot += amount;
     }
 
     toJSON() {

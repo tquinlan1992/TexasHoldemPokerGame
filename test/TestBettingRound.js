@@ -14,7 +14,7 @@ const players1 = [{
     amount: "20"
 }];
 
-test("test create BettingRound", t => {
+test("test create BettingRound and bet", t => {
     var bettingRound = new BettingRound({
         players: _.clone(players1),
         smallBlind: 5,
@@ -32,18 +32,28 @@ test("test create BettingRound", t => {
         smallBlind: 5,
         bigBlind: 10,
         numberOfRaises: 4,
-        players: [{
-            id: "tom",
-            amount: "20"
-        }, {
-            id: "ryan",
-            amount: "20"
-        }, {
-            id: "bobby",
-            amount: "20"
-        }],
-        status: bettingRoundConstants.ACTIVE
+        originalPlayers: players1,
+        players: players1,
+        status: bettingRoundConstants.ACTIVE,
+        pot: "0"
     });
+
+    t.deepEqual(bettingRound.placeBet({
+        id: "tom",
+        amount: "5"
+    }), {
+        success: false,
+        message: "wrong player to bet"
+    }, "wrong player to bet");
+
+    t.deepEqual(bettingRound.placeBet({
+        id: "bobby",
+        amount: "5"
+    }), {
+        success: true,
+        message: "bet placed",
+        amountReduced: "5"
+    }, "bet placed");
 
     t.end();
 });
