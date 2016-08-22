@@ -15,7 +15,7 @@ class PokerGame {
             }),
             smallBlind: pokerGameObject.smallBlind,
             bigBlind: pokerGameObject.bigBlind,
-            numberOfRaisesPerBettingRound: pokerGameObject.numberOfRaisesPerBettingRound,
+            numberOfRounds: pokerGameObject.numberOfRounds,
             gameStatus: pokerGameObject.status ? pokerGameObject.status : pokerGameStatuses.START,
             highCardsGame: pokerGameObject.highCardsGame,
             texasHoldemGame: pokerGameObject.texasHoldemGame,
@@ -34,7 +34,14 @@ class PokerGame {
 
     dealCardsForTexasHoldem() {
         this.texasHoldemGame = new TexasHoldemGame(this.players);
-        this.bettingRound = new BettingRound(this.players, this.smallBlind, this.bigBlind, this.numberOfRaisesPerBettingRound);
+        this.bettingRound = new BettingRound({
+            players: _.map(this.players, player => {
+                return player.toJSON();
+            }),
+            smallBlind: this.smallBlind,
+            bigBlind: this.bigBlind,
+            numberOfRounds: this.numberOfRounds
+        });
         this.gameStatus = pokerGameStatuses.TEXAS_HOLDEM;
     }
 

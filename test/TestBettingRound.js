@@ -19,7 +19,7 @@ test("test create BettingRound and bet", t => {
         players: _.clone(players1),
         smallBlind: 5,
         bigBlind: 10,
-        numberOfRaises: 4,
+        numberOfRounds: 4,
         dealer: players1[2],
         preflop: true
     });
@@ -31,7 +31,7 @@ test("test create BettingRound and bet", t => {
         dealer: players1[2],
         smallBlind: 5,
         bigBlind: 10,
-        numberOfRaises: 4,
+        numberOfRounds: 4,
         originalPlayers: players1,
         players: players1,
         status: bettingRoundConstants.ACTIVE,
@@ -63,7 +63,7 @@ test("test BettingRound decideWhoToStartBetting on preflop players1", t => {
         players: _.clone(players1),
         smallBlind: 5,
         bigBlind: 10,
-        numberOfRaises: 4,
+        numberOfRounds: 4,
         dealer: players1[0],
         preflop: true
     });
@@ -73,7 +73,7 @@ test("test BettingRound decideWhoToStartBetting on preflop players1", t => {
         players: players1,
         smallBlind: 5,
         bigBlind: 10,
-        numberOfRaises: 4,
+        numberOfRounds: 4,
         dealer: players1[1],
         preflop: true
     });
@@ -84,7 +84,7 @@ test("test BettingRound decideWhoToStartBetting on preflop players1", t => {
         players: players1,
         smallBlind: 5,
         bigBlind: 10,
-        numberOfRaises: 4,
+        numberOfRounds: 4,
         dealer: players1[2],
         preflop: true
     });
@@ -116,7 +116,7 @@ test("test BettingRound decideWhoToStartBetting on preflop players2", t => {
         players: players2,
         smallBlind: 5,
         bigBlind: 10,
-        numberOfRaises: 4,
+        numberOfRounds: 4,
         dealer: players2[0],
         preflop: true
     });
@@ -127,7 +127,7 @@ test("test BettingRound decideWhoToStartBetting on preflop players2", t => {
         players: players2,
         smallBlind: 5,
         bigBlind: 10,
-        numberOfRaises: 4,
+        numberOfRounds: 4,
         dealer: players2[1],
         preflop: true
     });
@@ -138,7 +138,7 @@ test("test BettingRound decideWhoToStartBetting on preflop players2", t => {
         players: players2,
         smallBlind: 5,
         bigBlind: 10,
-        numberOfRaises: 4,
+        numberOfRounds: 4,
         dealer: players2[2],
         preflop: true
     });
@@ -149,7 +149,7 @@ test("test BettingRound decideWhoToStartBetting on preflop players2", t => {
         players: players2,
         smallBlind: 5,
         bigBlind: 10,
-        numberOfRaises: 4,
+        numberOfRounds: 4,
         dealer: players2[3],
         preflop: true
     });
@@ -160,7 +160,7 @@ test("test BettingRound decideWhoToStartBetting on preflop players2", t => {
         players: players2,
         smallBlind: 5,
         bigBlind: 10,
-        numberOfRaises: 4,
+        numberOfRounds: 4,
         dealer: players2[4],
         preflop: true
     });
@@ -169,20 +169,40 @@ test("test BettingRound decideWhoToStartBetting on preflop players2", t => {
 
     t.end();
 });
-/*
+
 test("test BettingRound decideWhoToStartBetting not on preflop", t => {
-    var bettingRound = new BettingRound(createTestPlayers(players2), 5, 10, 4, "tom");
 
-    t.equal(bettingRound.toJSON().idToBet, "tom", "with tom as dealer");
+    var bettingRound = new BettingRound({
+        players: players2,
+        smallBlind: 5,
+        bigBlind: 10,
+        numberOfRounds: 4,
+        dealer: players2[0],
+        preflop: false
+    });
 
-    bettingRound = new BettingRound(createTestPlayers(players2), 5, 10, 4, "ryan");
+    t.deepEqual(bettingRound.toJSON().playerToBetNext, players2[0], "with tom as dealer");
 
-    t.equal(bettingRound.toJSON().idToBet, "ryan", "with ryan as dealer");
+    bettingRound = new BettingRound({
+        players: players2,
+        smallBlind: 5,
+        bigBlind: 10,
+        numberOfRounds: 4,
+        dealer: players2[1],
+        preflop: false
+    });
+    t.deepEqual(bettingRound.toJSON().playerToBetNext, players2[1], "with ryan as dealer");
 
-    bettingRound = new BettingRound(createTestPlayers(players2), 5, 10, 4, "bobby");
+    bettingRound = new BettingRound({
+        players: players2,
+        smallBlind: 5,
+        bigBlind: 10,
+        numberOfRounds: 4,
+        dealer: players2[2],
+        preflop: false
+    });
 
-    t.equal(bettingRound.toJSON().idToBet, "bobby", "with bobby as dealer");
+    t.deepEqual(bettingRound.toJSON().playerToBetNext, players2[2], "with bobby as dealer");
 
     t.end();
 });
-*/

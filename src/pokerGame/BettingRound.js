@@ -20,8 +20,8 @@ class BettingRound {
             preflop: bettingRoundObject.preflop,
             smallBlind: bettingRoundObject.smallBlind,
             bigBlind: bettingRoundObject.bigBlind,
-            numberOfRaises: bettingRoundObject.numberOfRaises,
-            dealer: bettingRoundObject.dealer,
+            numberOfRounds: bettingRoundObject.numberOfRounds,
+            dealer: bettingRoundObject.dealer ? new Player(bettingRoundObject.dealer) : null,
             status: bettingRoundObject.status ? bettingRoundObject.status : bettingRoundConstants.ACTIVE,
             pot: bettingRoundObject.pot ? bettingRoundObject.pot : "0"
         });
