@@ -1,4 +1,4 @@
-module.exports = {
+{
     "2_of_clubs": 0,
     "2_of_diamonds": 1,
     "2_of_hearts": 2,
@@ -51,4 +51,4 @@ module.exports = {
     "ace_of_diamonds": 49,
     "ace_of_hearts": 50,
     "ace_of_spades": 51,
-};
+}

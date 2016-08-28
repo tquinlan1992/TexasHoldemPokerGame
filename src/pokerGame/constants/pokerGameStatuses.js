@@ -1,5 +1,0 @@
-module.exports = {
-    START: 0,
-    HIGH_CARDS: 1,
-    TEXAS_HOLDEM: 2
-};
